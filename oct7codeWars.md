@@ -91,7 +91,7 @@ class Solution {
             if (allNums.containsValue(x)){
                 result[0] = i;
                 for(int j = 0; j < nums.length; j++){
-                    if (nums[j] == x){
+                    if (nums[j] == x && j != i){
                         result[1] = j;
                         return result;
                     }
