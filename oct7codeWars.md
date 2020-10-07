@@ -1,4 +1,4 @@
-#codewars
+# codewars
 ___________________________________
 
 ``` java
@@ -69,3 +69,37 @@ class Solution {
         
     }
 }
+```
+
+_______________________________
+# Two Sum
+_______________________________
+
+``` java
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap <Integer, Integer> allNums = new HashMap<>();
+        int x;
+        int [] result = new int[2];
+        
+        for(int i = 0; i < nums.length; i++){
+            allNums.put(i, nums[i]);
+        }
+        
+        for(int i = 0; i < nums.length; i++){
+            x = target - allNums.get(i);
+            if (allNums.containsValue(x)){
+                result[0] = i;
+                for(int j = 0; j < nums.length; j++){
+                    if (nums[j] == x){
+                        result[1] = j;
+                        return result;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+}
+```
+
