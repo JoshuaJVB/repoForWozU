@@ -154,4 +154,66 @@ class Solution {
     }
 }
 ```
+______________________
+# second attempt at top K
+______________________
 
+``` java
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        ArrayList <String> result = new ArrayList<>();
+		HashMap<String, Integer> kCount = new HashMap<>();
+
+		
+		
+		for(int i = 0; i < words.length; i++) {
+			if(!kCount.containsKey(words[i])){
+                kCount.put(words[i], 1);
+            }else{
+                kCount.replace(words[i], (kCount.get(words[i])+1));
+            }
+		}
+		
+		for(Map.Entry<String, Integer> val : kCount.entrySet()) {
+			result.add(val.getKey());
+		}
+		
+		result = sort(result, kCount);
+		
+		for(int i = k-1; i < result.size(); i++) {
+			result.remove(i);
+		}
+			
+		return result;
+	}
+	
+	public static ArrayList<String> sort(ArrayList<String> result, HashMap<String, Integer> kCount){
+		int low, high;
+		String temp;
+		
+		
+		for(int i = 1; i < result.size(); i++) {
+			high = kCount.get(result.get(i-1));
+			low = kCount.get(result.get(i));
+			
+			if(low > high) {
+				temp = result.get(i-1);
+				result.set(i-1, result.get(i));
+				result.set(i, temp);
+			}
+		}
+		
+		for(int i = 1; i < result.size(); i++) {
+			high = kCount.get(result.get(i-1));
+			low = kCount.get(result.get(i));
+			
+			if(low > high) {
+				result = sort(result, kCount);
+			}
+		}
+		
+		return result;
+		
+	}
+}
+```
