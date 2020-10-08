@@ -103,3 +103,55 @@ class Solution {
 }
 ```
 
+______________
+# top k
+______________
+
+I was unfortunately unable to get this code working. The intent was to create a hashmap, which had words as keys and the number of occurences as the values. I then tried to sort the array by most commonly used words with a recursive sorting method. However, I was getting a null pointer exception and was unable to figure out to do next.
+
+``` java
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap<String, Integer> kCount = new HashMap<>();
+        String temp;
+        
+        for(int i = 0; i < words.length; i++){
+            if(!kCount.containsKey(words[i])){
+                kCount.put(words[i], 1);
+            }else{
+                kCount.replace(words[i], (kCount.get(words[i])+1));
+            }
+        }
+        
+        String [] result = kCount.keySet().toArray(new String[0]);
+        sort(result, kCount);
+        
+        ArrayList <String> list = new ArrayList<>();
+        
+        for(int i = 0; i < k; i++){
+            list.add(result[i]);
+        }
+        
+        return list;
+        
+    }
+    
+    public static String[] sort(String[] s, HashMap<String, Integer> m ){
+        String temp;
+        for(int i = 1; i < s.length; i++){
+            if(m.get(i-1) > m.get(i)){
+                temp = s[i-1];
+                s[i-1] = s[i];
+                s[i] = temp;
+            }
+        }
+        for(int i = 1; i < s.length; i++){
+            if (m.get(i-1) > m.get(i)){
+                s = sort(s, m);
+            }
+        }
+        return s;
+    }
+}
+```
+
